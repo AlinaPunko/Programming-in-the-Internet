@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All</title>
+</head>
+<body>
+<div>Get messages</div>
+<div>
+    <input type="button" onclick="getMessages()" value="get">
+    <div id="messages"></div>
+</div>
+
+<script>
+
+    function getMessages() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/Lab15_war/mail");
+        xhr.send();
+
+        xhr.onload = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById("messages").innerHTML = xhr.response;
+            }
+        }
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="AS_13" default="war">
+    <presetdef name="javac">
+        <javac includeantruntime="false" />
+    </presetdef>
+    <path id="compile.classpath">
+        <fileset dir="web/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+
+    <target name="war" depends="compile">
+<!--        destfile="C:/Program Files (x86)/Apache Software Foundation/Tomcat 9.0/webapps/AS_13.war" webxml="web/WEB-INF/web.xml"-->
+<!--        <war destfile="//USER-VAIO/webapps/AS_13.war" webxml="web/WEB-INF/web.xml">-->
+        <war destfile="//172.16.193.69/webapps/AS_PAA_13_1.war" webxml="web/WEB-INF/web.xml">
+            <fileset dir="web"/>
+            <lib dir="web/WEB-INF/lib"/>
+            <classes dir="build/classes"/>
+        </war>
+
+
+        <delete dir="build"/>
+    </target>
+</project>

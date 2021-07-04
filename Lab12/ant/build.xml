@@ -1,0 +1,34 @@
+<project name="lab12_ant" default="war" basedir="..">
+    <property file="ant/build.properties"/>
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+    </path>
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+    <target name="init" depends="clean">
+        <mkdir dir="${build.dir}/WEB-INF/classes"/>
+        <mkdir dir="${build.dir}/WEB-INF/lib"/>
+    </target>
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+    <target name="copy" depends="compile">
+        <copy todir="${build.dir}">
+            <fileset dir="${web.content}"/>
+        </copy>
+        <copy todir="${build.dir}/WEB-INF/lib">
+            <fileset dir="${lib.dir}"/>
+        </copy>
+    </target>
+    <target name="war" depends="copy">
+        <war destfile="${dist.dir}/${project.name}.war" webxml="${build.dir}/WEB-INF/web.xml">
+            <fileset dir="${build.dir}"/>
+        </war>
+        <copy todir="C:/Program Files (x86)/Apache Software Foundation/Tomcat 9.0/webapps">
+            <fileset dir="${dist.dir}"/>
+        </copy>
+    </target>
+</project>

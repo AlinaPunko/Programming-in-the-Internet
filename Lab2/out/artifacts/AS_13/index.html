@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <script src="scripts/jquery-3.2.1.js"></script>
+</head>
+<body>
+<input type="button" value="GET" onclick="ajaxGet('GoSss', null)">
+<input type="button" value="POST" onclick="ajaxPost('GoSss', null)">
+<p id="get-result-field">
+<p id="post-result-field">
+<hr>
+<a href="GoSss?firstname=Alina&lastname=Punko" >pass parameters via GET</a>
+
+<form action="GoSss" method="post">
+    <input type="text" name="firstname" value="Alina">
+    <br>
+    <input type="text" name="lastname" value="Punko">
+    <br>
+    <input type="submit" value="submit">
+</form>
+<script>
+    function ajaxGet(url, callback) {
+        var xmlDoc = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+
+        xmlDoc.open('GET', url, true);
+
+        xmlDoc.onreadystatechange = function() {
+            if (xmlDoc.readyState === 4 && xmlDoc.status === 200) {
+                document.getElementById("get-result-field").innerHTML = xmlDoc.responseText;
+            }
+        }
+
+        xmlDoc.send();
+    }
+
+    function ajaxPost(url, data, callback) {
+        var xmlDoc = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+
+        xmlDoc.open('POST', url, true);
+        xmlDoc.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xmlDoc.onreadystatechange = function() {
+            if (xmlDoc.readyState === 4 && xmlDoc.status === 200) {
+                document.getElementById("post-result-field").innerHTML = xmlDoc.responseText;
+            }
+        }
+
+        xmlDoc.send(data);
+    }
+</script>
+
+</body>
+</html>
